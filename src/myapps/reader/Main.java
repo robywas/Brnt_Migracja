@@ -13,8 +13,8 @@ import java.sql.SQLException;
 public class Main {
 
 
-    private String csvPath = "D:/#Dokumenty/#Maven/Britenet/dane-osoby.txt";
-    private String xmlPath = "D:/#Dokumenty/#Maven/Britenet/dane-osoby.xml";
+    private String csvPath = "./dane-osoby.txt";
+    private String xmlPath = "./dane-osoby.xml";
     private Migrator migrator;
 
     public static void main(String[] args) throws IOException {
