@@ -3,10 +3,8 @@ package myapps.reader.application;
 import myapps.reader.model.Contact;
 import myapps.reader.model.commands.CreateCustomerCommand;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,10 +17,12 @@ public class XmlMigrator extends Migrator {
 
     public XmlMigrator(String path) {
         try {
-            this.bufferedReader = new BufferedReader(new FileReader(path));
+            this.bufferedReader = new BufferedReader
+                    (new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
     }
 
     public void migrate() throws IOException, SQLException {
@@ -51,7 +51,7 @@ public class XmlMigrator extends Migrator {
                     createCustomerCommand.setSurname(extractValue(d));
                 else if (d.contains("<age>")) {
                     String a = extractValue(d);
-                    if (!(a != null))
+                    if (a == null)
                         a = "";
                     createCustomerCommand.setAge(a);
                 } else if (d.contains("<city>"))

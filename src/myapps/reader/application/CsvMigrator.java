@@ -3,10 +3,8 @@ package myapps.reader.application;
 import myapps.reader.model.Contact;
 import myapps.reader.model.commands.CreateCustomerCommand;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +16,8 @@ public class CsvMigrator extends Migrator {
 
     public CsvMigrator(String path) {
         try {
-            this.bufferedReader = new BufferedReader(new FileReader(path));
+            this.bufferedReader = new BufferedReader
+                    (new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -41,7 +40,7 @@ public class CsvMigrator extends Migrator {
         ccc.setSurname(lineSplit[1]);
         ccc.setAge(lineSplit[2]);
         ccc.setCity(lineSplit[3]);
-        if (lineSplit.length > 3) {
+        if (lineSplit.length > 4) {
             Set<Contact> contacts = new HashSet<>();
             for (int i = 4; i < lineSplit.length; i++) {
                 contacts.add(new Contact(lineSplit[i]));

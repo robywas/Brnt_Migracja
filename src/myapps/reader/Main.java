@@ -5,9 +5,8 @@ import myapps.reader.application.Migrator;
 import myapps.reader.application.XmlMigrator;
 import myapps.reader.infrastructure.DbManager;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 public class Main {
@@ -30,9 +29,9 @@ public class Main {
             e.printStackTrace();
         }
 
-        String path = xmlPath;
+        String path = csvPath;
 
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+        BufferedReader bufferedReader = new BufferedReader (new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8));
         String firstLine = bufferedReader.readLine();
 
 
