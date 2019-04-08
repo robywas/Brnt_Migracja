@@ -16,13 +16,11 @@ public class DbManager {
     private static final String DB_PASSWORD = "admin";
 
 
-
     public static void initDatabase() throws SQLException {
         Connection connection = getConnection();
         createTable(connection, CREATE_CUSTOMERS_TABLE);
         createTable(connection, CREATE_CONTACTS_TABLE);
-        if (connection != null)
-            connection.close();
+        connection.close();
 
     }
 
@@ -44,8 +42,8 @@ public class DbManager {
     }
 
 
-    public static void createTable(Connection connection, String createQuery) {
-        PreparedStatement createPreparedStatement = null;
+    private static void createTable(Connection connection, String createQuery) {
+        PreparedStatement createPreparedStatement;
 
         try {
             createPreparedStatement = connection.prepareStatement(createQuery);
